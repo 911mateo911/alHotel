@@ -1,0 +1,68 @@
+<%- include('../elements/head', {name: title}) %>
+
+<div class="find">
+    <div class="input-find">
+        <form class="findForm" action="/discussion/search" method="POST">
+            <input type="text" value="" name="q" placeholder="Search">
+        </form>
+        <img src="images/search.svg" alt="">
+    </div>
+</div>
+    <div class="form ask">
+            <h1>Discussions</h1>
+            <% if (currentUser) { %>
+                <div class="askHeading">             
+                    <h3>My discussions</h3>
+                    <a>New</a>
+                    <form class="comment-form form hide" method="POST" action="/discussion/new">
+                        <input type="text" name="discuss[topic]" placeholder="Topic" class="textInput">
+                        <textarea name="discuss[body]" placeholder="New thread" class="textInput" cols="2" rows="2"></textarea>
+                        <button>Post</button>
+                    </form>
+                </div>
+            
+        <div class="myAskCont">
+            <% for( let thread of myThreads ) { %>
+                <div class="ask-item">
+                    <p class="review-user comment-user">By: <a href="/myprofile/<%= thread.author._id %>"><strong><%= thread.author.username %></strong></a></p>
+                    <p class="comment-topic">Topic: <strong><%= thread.topic %></strong></p>
+                    <p class="comment-body"><%= thread.body %></p>
+                    <div class="showMore-wrap">
+                        <div class="seen">
+                            <span>
+                                <img class="eye" src="/images/comment.svg">
+                                <p><%= thread.comments.length %></p>
+                            </span>
+                        </div>
+                        <a class="showMore" href="/discussion/thread/<%= thread._id %>">Show more</a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <% } %>
+        <div class="comments">
+            <h2>Latest</h2>
+            <% for( let thread of foundThreads ) { %>
+                <div class="ask-item">
+                    <p class="review-user comment-user">By: <a href="/myprofile/<%= thread.author._id %>"><strong><%= thread.author.username %></strong></a></p>
+                    <p class="comment-topic">Topic: <strong><%= thread.topic %></strong></p>
+                    <p class="comment-body"><%= thread.body %></p>
+                    <div class="showMore-wrap">
+                        <div class="seen">
+                            <span>
+                                <img class="eye" src="/images/comment.svg">
+                                <p><%= thread.comments.length %></p>
+                            </span>
+                        </div>
+                        <a class="showMore" href="/discussion/thread/<%= thread._id %>">Show more</a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <%- include('../elements/formError') %>
+    <%- include('../elements/footer') %>
+    <script src="/js/other/functions.js"></script>
+    <script src="/js/other/discussion.js"></script>
+    </body>
+</html>

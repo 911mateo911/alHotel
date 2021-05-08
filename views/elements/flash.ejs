@@ -1,0 +1,15 @@
+<% if (success && success.length) { %>
+    <div class="alert success">
+        <h3>
+            <%= success %>
+        </h3>
+    </div>
+<% } %>
+
+<% if (error && error.length) { %>
+    <div class="alert err">
+        <h3>
+            <%= error %>
+        </h3>
+    </div>
+<% } %>

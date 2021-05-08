@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>alHotel - Find the best hotels near you</title>
+    <link rel="shortcut icon" href="/images/aL.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/homepage/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="main-wrapper">
+        <h1>Looking for a nice place to spend your vacation?</h1>
+        <h3>This is the place to find, add, review some of the best hotels & homes in Albania</h3>
+        <div class="find">
+            <div class="hide input-find">
+                <form class="findForm" action="/search" method="POST">
+                    <input type="text" name="q" placeholder="Find the next trip">
+                </form>
+                <img src="images/search.svg" alt="">
+            </div>
+            <button class="findBtn" >Find</button>
+        </div>
+    </main>
+    <nav class="navbar">
+        <a href="/discussion">Ask</a>
+        <a href="/map">Map</a>
+        <img class="plus" src="images/plus.svg" alt="">
+        <% if (!currentUser) { %>
+            <a href="/login">Login</a>
+            <a href="/register" >Register</a>
+            <% } else { %>
+                <a href="/myprofile/<%= currentUser._id %>">Profile</a>
+                <a href="/logout">Logout</a>
+            <% } %>
+    </nav>
+
+    <article id="most-visited">
+        <h2 class="header" >Most Rated</h2>
+        <div class="carousel-outer">
+            <span class="slide-left"><img src="images/left-arrow.svg" alt=""></span>
+            <div class="carousel">
+                <% for( let hotel of mostRated) { %>
+                    <div class="carousel-item">
+                        <% if (hotel.photo.length) { %>
+                            <img class="carouselImg" src="<%= hotel.photo[0].url %>">
+                            <% } else { %>
+                                <img class="carouselImg carouselnoPhoto" src="images/lens.svg" alt="no photo included">
+                                <% } %>
+                                    <h3 class="name">
+                                        <%= hotel.name %>
+                                    </h3>
+                                    <p class="hotelDesc hotelName">
+                                        <%= hotel.location %>
+                                    </p>
+                                    <% if (hotel.description.length > 100) { %>
+                                        <p class="hotelDesc desc" ><%= hotel.description.slice(0,100) %></p>
+                                    <% } else {%>
+                                        <p class="hotelDesc desc" ><%= hotel.description %></p>
+                                    <% } %>
+                                    <div class="reviewBox">
+                                        <p>Reviews:</p>
+                                        <span>
+                                            <p><%= hotel.avgReviews %></p>
+                                            <img src="images/star.svg" class="star" alt="stars">
+                                        </span>
+                                    </div>
+                                    <div class="showMore-wrap">
+                                        <div class="seen">
+                                            <span>
+                                                <img class="eye" src="/images/seen.svg">
+                                                <% if (hotel.seen > 1000) { %>
+                                                    <p><%= Math.round((hotel.seen / 1000) * 10) / 10 + "k" %></p>
+                                                <% } else {%>
+                                                    <p><%= hotel.seen %></p>
+                                                <% } %> 
+                                            </span>
+                                            <span>
+                                                <img class="eye" src="/images/comment.svg">
+                                                <p><%= hotel.reviews.length %></p>
+                                            </span>
+                                        </div>
+                                        <a class="showMore" href="/places/<%= hotel._id %>">Show more</a>
+                                    </div>
+                    </div>
+                    <% } %>
+                        <div class="carousel-item"></div>
+            </div>
+            <span class="slide-right"><img src="images/right-arrow.svg" alt=""></span>
+        </div>
+    </article>
+    <article id="topBlogs">
+        <h2 class="header blogs" >Top Blogs</h2>
+        <div class="blogOuter">
+            <% for( let blog of topBlogs ) { %>
+                <div class="result-item">
+                    <div class="result-img">
+                        <% if (blog.photo.length) { %>
+                            <img
+                            src="<%= blog.photo[0].url %>">
+                        <% } else {%>
+                            <img class="resultNoPhoto" src="/images/lens.svg">
+                        <% } %> 
+                    </div>
+                    <div class="result-info">
+                        <h3><%= blog.title.slice(0,50) %></h3>
+                        <h4><%= blog.subtitle.slice(0,200) %></h4>
+                    </div>
+                    <p class="result-desc"><%= blog.description.slice(0,200) %>...</p>
+                    <div class="showMore-wrap">
+                        <div class="seen">
+                            <span>
+                                <img class="eye" src="/images/seen.svg">
+                                <p><%= blog.seen %></p>
+                            </span>
+                            <span>
+                                <img class="eye" src="/images/comment.svg">
+                                <p><%= blog.comments.length %></p>
+                            </span>
+                        </div>
+                        <a class="showMore" href="/blog/<%= blog._id %>">Show more</a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </article>
+    <div class="navigation hotelog hide">
+        <a href="/blog/new">New Blog</a>
+        <a href="/places/new">New Hotel</a>
+        <img src="images/close.svg" alt="close">
+    </div>
+    <%- include('../elements/footer') %>
+    <%- include('../elements/flash') %>
+        <script src="/js/homePage/index.js"></script>
+</body>
+
+</html>

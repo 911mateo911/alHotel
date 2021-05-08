@@ -1,0 +1,71 @@
+<%- include('../elements/head', {name: title}) %>
+
+<main>
+    <h1 class="showTitle">
+        <%= title %>
+    </h1>
+    <h3 class="showTitle">
+        <%= subtitle %>
+    </h3>
+    <form class="form" enctype="multipart/form-data" action="/blog/<%= blog._id %>?_method=<%= method %>"
+        method="POST">
+        <div class="text-wrapper">
+            <div class="input-wrap">
+                <label for="#name">Blog Title</label>
+                <input maxlength="200" value="<%= blog.title %>" type="text" placeholder="My visit at Saranda"
+                    name="blog[title]" id="name" class="textInput" />
+            </div>
+            <div class="input-wrap">
+                <label for="#price">Subtitle</label>
+                <input maxlength="200" value="<%= blog.subtitle %>" placeholder="The sea, the sun, summer is..."
+                    class="textInput" type="text" name="blog[subtitle]" id="price" />
+            </div>
+            <div class="input-wrap">
+                <label for="desc">Description</label>
+                <textarea name="blog[description]" class="textInput" placeholder="So it was the summer of 2021..." id="desc"
+                    cols="30" rows="25"><%= blog.description %></textarea>
+            </div>
+        </div>
+        <div class="formPhoto">
+            <div class="photo-wrapper">
+                <a class="clearPhoto">Clear</a>
+                <input type="file" multiple name="photo" id="file" class="inputfile" />
+                <p class="fileName"></p>
+                <label for="file" class="fileLabel">Add photos</label>
+            </div>
+        </div>
+        <p class="fileQuota" >Maximum 10 photos allowed</p>
+        <section id="slideshow" class="put">
+            <% if (method==='PUT' && blog.photo.length) { %>
+                <span class="slide-left"><img src="/images/left-arrow.svg" alt=""></span>
+                <span class="slide-num">
+                    <p class="count">1/</p>
+                    <p>
+                        <%= blog.photo.length %>
+                    </p>
+                </span>
+                <div class="carouselEdit">
+                    <% blog.photo.forEach(function(img, i){ %>
+                        <div class="carousel-div">
+                            <img class="carousel-item" src="<%= img.url %>" alt="">
+                            <div class="deleteImg">
+                                <label class="image-<%= i %>" for="image-<%= i %>">Delete</label>
+                                <input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
+                                    value="<%= img.filename %>">
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <span class="slide-right"><img src="/images/right-arrow.svg" alt=""></span>
+                <% } %>
+        </section>
+        <button type="submit">Done</button>
+    </form>
+</main>
+<%- include('../elements/footer') %>
+<%- include('../elements/formError') %> 
+<script src="/js/other/functions.js"></script>
+<script src="/js/other/blogIndex.js"></script>
+</body>
+
+</html>

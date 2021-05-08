@@ -1,0 +1,68 @@
+<%- include('../elements/head', {name: title}) -%>
+
+<div class="form">
+    <h1 class="name"><%= blog.title %> </h1>
+    <section id="slideshow">
+        <% if (blog.photo.length) { %>
+            <span class="slide-left"><img src="/images/left-arrow.svg" alt=""></span>
+            <span class="slide-num"><p class="count">1/</p><p><%= blog.photo.length %></p>
+            </span>
+            <div class="carousel">
+                <% for( let singlePhoto of blog.photo ) { %>
+                    <img class="carousel-item" src="<%= singlePhoto.url %>" alt="">
+                    <% } %>
+            </div>
+            <span class="slide-right"><img src="/images/right-arrow.svg" alt=""></span>
+            <% } else {%>
+                <div class="noPhoto">
+                    <img src="/images/lens.svg" alt="">
+                    <p>No photo provided</p>
+                </div>
+                <% } %>
+    </section>
+    <p class="sugUser">Written by: <a href="/myprofile/<%= blog.author._id %>"><strong><%= blog.author.username %></strong></a>
+    </p>
+    <h4 class="subtitle"><%= blog.subtitle %></h4>
+    <p class="blog-desc"><%= blog.description %></p>
+    <% if (currentUser && blog.author.equals(currentUser._id)) { %>
+        <div class="actionBtn">
+            <a class="editBtn" href="/blog/<%= blog._id %>/edit">Edit</a>
+            <form class="deleteForm" action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
+                <button id="deleteBtn">Delete</button>
+            </form>
+        </div>
+        <% } %>
+    <div class="comments">
+        <h2>Comments</h2>
+        <% for( let comment of blog.comments ) { %>
+            <div class="comment-item">
+                <p class="review-user comment-user">By: <a href="/myprofile/<%= comment.author._id %>"><strong><%= comment.author.username %></strong></p></a>
+                <p><%= comment.body %></p>
+                <% if (currentUser && comment.author.equals(currentUser._id)) { %>
+                    <form action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
+                        <button class="delete-review" id="commentDBtn">Delete</button>
+                    </form>
+                <% } %>
+            </div>
+        <% } %>
+    </div>
+    <% if (currentUser) { %>
+        <form class="comment-form" action="/blog/<%= blog._id %>/comment" method="POST">
+            <textarea class="textInput" id="comment-input" name="comment[body]" placeholder="Add a comment" cols="30" rows="3"></textarea>
+            <div class="comment-div">
+                <button id="commentBtn">Post</button>
+            </div>
+        </form>
+    <% } %>
+</div>
+<%- include('../elements/formError') %> 
+<div class="delete hide">
+    <img class="hourGlass" src="/images/hourGlass.svg">
+</div>
+<%- include('../elements/flash') %>
+<%- include('../elements/footer') %>
+<script src="/js/other/functions.js"></script>
+<script src="/js/other/showblog.js"></script>
+</body>
+
+</html>

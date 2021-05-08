@@ -1,0 +1,25 @@
+<%- include('../elements/head', {name: title}) -%>
+    <form class="form login" action="/register" method="POST">
+        <h1 class="name">Create an account</h1>
+        <div class="input-wrap">
+            <label for="#email">Email</label>
+            <input class="textInput" type="text" id="email" placeholder="Email" name="email">
+        </div>
+        <div class="input-wrap">
+            <label for="#username">Username</label>
+            <input class="textInput" type="text" id="username" placeholder="Username" name="username">
+        </div>
+        <div class="input-wrap">
+            <label for="#password">Password <strong>Show</strong> </label>
+            <input class="textInput" type="password" id="password" name="password" placeholder="Password">
+            <button>Login</button>
+        </div>
+        <p class="createAcc">Already have an account? Login <a href="/login">here</a></p>
+    </form>
+    <%- include('../elements/formError') %> 
+    <%- include('../elements/flash') -%>
+    <%- include('../elements/footer') %>
+    <script src="/js/other/register.js"></script>
+    </body>
+
+    </html>

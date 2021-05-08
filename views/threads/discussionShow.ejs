@@ -1,0 +1,48 @@
+<%- include('../elements/head', {name: title}) %>
+
+    <div class="form">
+        <h1 class="name"><%= thread.topic %></h1>
+        <div class="ask-item showThread">
+            <p class="review-user comment-user">By: <a href="/myprofile/<%= thread.author._id %>"><strong>
+                        <%= thread.author.username %>
+                    </strong></a></p>
+            <p class="comment-body">
+                <%= thread.body %>
+            </p>
+            <% if (currentUser && thread.author.equals(currentUser._id)) { %>
+                <form class="deleteForm" action="/discussion/thread/<%= thread._id %>/?_method=DELETE" method="POST" >
+                    <button class="deleteComment">Delete</button>
+                </form>           
+            <% } %>
+            <div class="showMore-wrap">
+                <h4>Comments</h4>
+                <% for( let comment of thread.comments) { %>
+                    <div class="thread-comment">
+                        <p class="review-user comment-user">By: <a href="/myprofile/<%= comment.author._id %>"><strong>
+                                    <%= comment.author.username %>
+                                </strong></a></p>
+                        <p class="comment-body"><%= comment.body %></p>
+                            <% if (currentUser && comment.author.equals(currentUser._id)) { %>
+                                <form action="/discussion/thread/<%= thread._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <button class="delete-review" id="commentDBtn">Delete</button>
+                                </form>
+                            <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <% if (currentUser) { %>
+            <form class="comment-form comment-show" action="/discussion/thread/<%= thread._id %>/comment" method="POST">
+                <textarea class="textInput" id="comment-input" name="comment[body]" placeholder="Add a comment" cols="30" rows="3"></textarea>
+                <div class="comment-div">
+                    <button id="commentBtn">Post</button>
+                </div>
+            </form>
+        <% } %>
+    </div>
+    <%- include('../elements/formError') %>
+    <%- include('../elements/footer') %>
+    <script src="/js/other/functions.js"></script>
+    <script src="/js/other/discussion.js"></script>
+    </body>
+</html>

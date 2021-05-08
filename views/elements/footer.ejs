@@ -1,0 +1,17 @@
+<footer>
+    <div class="footerBtn">
+        <a href="/search">Find</a>
+        <a href="/discussion">Ask</a>
+        <a href="/map">Map</a>
+        <% if (!currentUser) { %>
+            <a href="/login">Login</a>
+        <% } else { %>
+            <a href="/logout">Logout</a>
+        <% } %>
+    </div>
+    <div class="footerMe">
+        <h1>alHotel . <img class="alHotel" src="/images/aL.png" alt=""></h1>
+        <a href="/me">About the developer</a>
+        <p>Mateo Malaj 2021</p>
+    </div>
+</footer>

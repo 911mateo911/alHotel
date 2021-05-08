@@ -1,0 +1,55 @@
+<%- include('../elements/head', {name: title}) %>
+
+<div class="find">
+    <div class="input-find">
+        <form class="findForm" action="/discussion/search" method="POST">
+            <input type="text" value="<%= query %>" name="q" placeholder="Search">
+        </form>
+        <img src="/images/search.svg" alt="">
+    </div>
+</div>
+
+<div class="form ask">
+    <div class="comments">
+        <h2>Found threads</h2>
+        <% if(foundThreads.length) { %>
+            <% for( let thread of foundThreads ) { %>
+                <div class="ask-item">
+                    <p class="review-user comment-user">By: <a href="/myprofile/<%= thread.author._id %>"><strong><%= thread.author.username %></strong></a></p>
+                    <p class="comment-topic">Topic: <strong><%= thread.topic %></strong></p>
+                    <p class="comment-body"><%= thread.body %></p>
+                    <div class="showMore-wrap">
+                        <div class="seen">
+                            <span>
+                                <img class="eye" src="/images/comment.svg">
+                                <p><%= thread.comments.length %></p>
+                            </span>
+                        </div>
+                        <a class="showMore" href="/discussion/thread/<%= thread._id %>">Show more</a>
+                    </div>
+                </div>
+            <% } %>
+        <% } else {%>
+            <h1 class="notFound">Nothing found here</h1>
+        <% } %> 
+    </div>
+</div>
+<div class="loading hide loading--circle" title="Loading">
+    <svg version="1.1" id="loading-circle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+    <path d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+      <animateTransform attributeType="XML"
+        attributeName="transform"
+        type="rotate"
+        from="0 25 25"
+        to="360 25 25"
+        dur="0.6s"
+        repeatCount="indefinite"/>
+      </path>
+    </svg>
+  </div>
+<%- include('../elements/formError') %>
+<%- include('../elements/footer') %>
+<script src="/js/other/searchDiscussion.js"></script>
+</body>
+</html>
+</div>

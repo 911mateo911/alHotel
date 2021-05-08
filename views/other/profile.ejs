@@ -1,0 +1,127 @@
+<%- include('../elements/head', {name: title}) -%>
+<div class="form profile">
+    <h1>User: <%= username %></h1>
+    <h3>Posts</h3>
+    <div class="scrollbar">
+        <div class="scroll-elem scroll-active stays">
+            <h4>Stays</h4>
+        </div>
+        <div class="scroll-elem blogs">
+            <h4>Blogs</h4>
+        </div>
+    </div>
+    <div class="results-cont">
+        <div class="resPlaces">
+            <h2>Places</h2>
+            <% if (foundPlaces.length) { %>
+                <% for( let place of foundPlaces ) { %>
+                    <div class="result-item">
+                        <div class="result-img">
+                            <% if (place.photo.length) { %>
+                                <img
+                                src="<%= place.photo[0].url %>">
+                            <% } else {%>
+                                <img class="resultNoPhoto" src="/images/lens.svg">
+                            <% } %> 
+                        </div>
+                        <div class="result-info">
+                            <% if (place.name.length > 30) { %>
+                                <h3><%= place.name.slice(0,30) %>...</h3>
+                            <% } else {%>
+                                <h3><%= place.name %></h3>
+                            <% } %>
+                            <% if (place.price.length > 30) { %>
+                                <h4><%= place.price.slice(0,30) %>...</h4>
+                            <% } else {%>
+                                <h4><%= place.price %></h4>
+                            <% } %> 
+                            <span>
+                                <p>Reviews: <%= place.avgReviews %></p>
+                                <img src="/images/star.svg" class="star" alt="stars">
+                            </span>
+                        </div>
+                        <p class="result-desc"><%= place.description.slice(0,100) %>...</p>
+                        <div class="showMore-wrap">
+                            <div class="seen">
+                                <span>
+                                    <img class="eye" src="/images/seen.svg">
+                                    <% if (place.seen > 1000) { %>
+                                        <p><%= Math.round((place.seen / 1000) * 10) / 10 + "k" %></p>
+                                    <% } else {%>
+                                        <p><%= place.seen %></p>
+                                    <% } %>
+                                </span>
+                                <span>
+                                    <img class="eye" src="/images/comment.svg">
+                                    <p><%= place.reviews.length %></p>
+                                </span>
+                            </div>
+                            <a class="showMore" href="/places/<%= place._id %>">Show more</a>
+                        </div>
+                    </div>
+                <% } %>          
+            <% } else {%>
+                <h1 class="notFound">Nothing found here</h1>
+            <% } %> 
+        </div>
+        <div class="resBlogs hide">
+            <h2>Blogs</h2>
+            <% if (foundBlogs.length) { %>
+                <% for( let blog of foundBlogs ) { %>
+                    <div class="result-item">
+                        <div class="result-img">
+                            <% if (blog.photo.length) { %>
+                                <img
+                                src="<%= blog.photo[0].url %>">
+                            <% } else {%>
+                                <img class="resultNoPhoto" src="/images/lens.svg">
+                            <% } %> 
+                        </div>
+                        <div class="result-info">
+                            <h3><%= blog.title.slice(0,50) %></h3>
+                            <h4><%= blog.subtitle.slice(0,200) %></h4>
+                    </div>
+                    <p class="result-desc"><%= blog.description.slice(0,200) %>...</p>
+                        <div class="showMore-wrap">
+                            <div class="seen">
+                                <span>
+                                    <img class="eye" src="/images/seen.svg">
+                                    <% if (blog.seen > 1000) { %>
+                                        <p><%= Math.round((blog.seen / 1000) * 10) / 10 + "k" %></p>
+                                    <% } else {%>
+                                        <p><%= blog.seen %></p>
+                                    <% } %>
+                                </span>
+                                <span>
+                                    <img class="eye" src="/images/comment.svg">
+                                    <p><%= blog.comments.length %></p>
+                                </span>
+                            </div>
+                            <a class="showMore" href="/blog/<%= blog._id %>">Show more</a>
+                        </div>
+                    </div>
+                <% } %>          
+            <% } else {%>
+                <h1 class="notFound">Nothing found here</h1>
+            <% } %> 
+        </div>
+        </div>
+    </div>
+</div>
+<div class="loading hide loading--circle" title="Loading">
+    <svg version="1.1" id="loading-circle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+    <path d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+      <animateTransform attributeType="XML"
+        attributeName="transform"
+        type="rotate"
+        from="0 25 25"
+        to="360 25 25"
+        dur="0.6s"
+        repeatCount="indefinite"/>
+      </path>
+    </svg>
+  </div>
+<script src="/js/other/profile.js"></script>
+<%- include('../elements/footer') %>
+</body>
+</html>

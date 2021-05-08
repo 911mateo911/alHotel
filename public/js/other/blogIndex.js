@@ -1,12 +1,12 @@
 const allInputs = document.querySelectorAll('.textInput')
 
-if (find('.carouselEdit')) {
-    carouselEdit()
-}
-
 find('#file').addEventListener('change', e => {
     fileValidator(e)
 })
+
+if (find('.carouselEdit')) {
+    carouselEdit()
+}
 
 const allPhotos = findAll('.carousel-item')
 const count = find('.count')
@@ -30,14 +30,10 @@ if (find('.slide-left')) {
     })
 }
 
-find('.clearPhoto').addEventListener('click', () => {
-    clearPhoto()
-})
-
 validationClasses(allInputs)
 
 find('.form').addEventListener('submit', function (e) {
-    if (!validateForm(allInputs, 5000) || !validateEditPhotos()) {
+    if (!validateForm(allInputs, 10000) || !validateEditPhotos()) {
         e.preventDefault()
     } else {
         e.preventDefault()
@@ -49,6 +45,11 @@ find('.form').addEventListener('submit', function (e) {
     }
 })
 
+find('.clearPhoto').addEventListener('click', () => {
+    clearPhoto()
+})
+
 find('.okBtn').addEventListener('click', () => {
     okBtn()
 })
+

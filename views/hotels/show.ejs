@@ -1,0 +1,116 @@
+<%- include('../elements/head', {name: title}) -%>
+    <link rel="stylesheet" href="/css/stars/stars.css">
+    <%- include('../elements/flash') %>
+        <div class="form base-form">
+            <h1 class="name">
+                <%= hotel.name %>
+            </h1>
+            <section id="slideshow">
+                <% if (hotel.photo.length) { %>
+                    <span class="slide-left"><img src="/images/left-arrow.svg" alt=""></span>
+                    <span class="slide-num"><p class="count">1/</p><p><%= hotel.photo.length %></p>
+                    </span>
+                    <div class="carousel">
+                        <% for( let singlePhoto of hotel.photo ) { %>
+                            <img class="carousel-item" src="<%= singlePhoto.url %>" alt="">
+                            <% } %>
+                    </div>
+                    <span class="slide-right"><img src="/images/right-arrow.svg" alt=""></span>
+                    <% } else {%>
+                        <div class="noPhoto">
+                            <img src="/images/lens.svg" alt="">
+                            <p>No photo provided</p>
+                        </div>
+                        <% } %>
+            </section>
+            <div class="splitSection">
+                <div class="left-side">
+                    <p class="sugUser">Suggested by: <a href="/myprofile/<%= hotel.author._id %>"><strong><%= hotel.author.username %></strong></a>
+                    </p>
+                    <p class="hotel-desc">
+                        <%= hotel.description %>
+                    </p>
+                    <h4 class="price">Price: <%= hotel.price %>
+                    </h4>
+                    <h4 class="location">Location: <%= hotel.location %>
+                    </h4>
+                    <% if(hotel.contact.length) { %>
+                        <h4 class="contact">Contact: <%= hotel.contact %></h4>
+                    <% } else { %>
+                        <h4 class="contact">Contact: No contact provided</h4>
+                    <% } %>
+                    <% if (currentUser && hotel.author.equals(currentUser._id)) { %>
+                        <div class="actionBtn">
+                            <a class="editBtn" href="/places/<%= hotel._id %>/edit">Edit</a>
+                            <form class="deleteForm" action="/places/<%= hotel._id %>?_method=DELETE" method="POST">
+                                <button id="deleteBtn">Delete</button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+                <div class="right-side">
+                    <div class="review-container">
+                        <h2>Reviews</h2>
+                        <% for( let review of hotel.reviews) { %>
+                            <div class="review">
+                                <p class="review-user">By: <a href="/myprofile/<%= review.author._id %>"><strong>
+                                    <%= review.author.username %>
+                                </strong></a></p>
+                                <h3 class="rating">Rating: <p>
+                                        <%= review.rating %><img src="/images/star.svg" class="star" alt="stars">
+                                    </p>
+                                </h3>
+                                <p class="review-body">
+                                    <%= review.body %>
+                                </p>
+                                <% if (currentUser && review.author.equals(currentUser._id)) { %>
+                                    <form action="/places/<%= hotel._id %>/review/<%= review._id %>?_method=DELETE"
+                                        method="POST">
+                                        <button class="delete-review">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                            <% } %>
+                    </div>
+                    <% if (currentUser) { %>
+                        <form class="form" id="review-form" action="/places/<%= hotel._id %>/review" method="POST">
+                            <label for="rating">Rating</label>
+                            <fieldset class="starability-grow">
+                                <input type="radio" id="no-rate" class="starInput input-no-rate" name="review[rating]"
+                                    value="0" checked aria-label="No rating." />
+                                <input class="starInput" type="radio" id="first-rate1" name="review[rating]"
+                                    value="1" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input class="starInput" type="radio" id="first-rate2" name="review[rating]"
+                                    value="2" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input class="starInput" type="radio" id="first-rate3" name="review[rating]"
+                                    value="3" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input class="starInput" type="radio" id="first-rate4" name="review[rating]"
+                                    value="4" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input class="starInput" type="radio" id="first-rate5" name="review[rating]"
+                                    value="5" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
+                            <label for="review-body">Leave a review</label>
+                            <textarea name="review[body]" class="textInput" id="review-body" cols="30" maxlength="400"
+                                rows="5"></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+        <%- include('../elements/footer') %>
+        <%- include('../elements/formError') %> 
+        <div class="delete hide">
+            <img class="hourGlass" src="/images/hourGlass.svg">
+            <h3>Deleting...Please wait</h3>
+        </div>
+        <script src="/js/other/functions.js"></script>
+        <script src="/js/other/show.js"></script>
+        </body>
+
+        </html>
