@@ -1,0 +1,295 @@
+body {
+    font-family: Nunito;
+    max-width: 960px;
+    width: 100%;
+    margin: auto;
+    padding-top: 5rem;
+    background: rgb(240, 240, 240);
+}
+/* Navbar */
+.navbar {
+    position: fixed;
+    max-width: calc(960px - 2.5%);
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(252, 252, 252);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 4rem;
+    border-bottom: 1px solid #f2f2f3;
+    box-shadow: 0 0px 2px rgba(0,0,0,0.02), 
+                0 0px 4px rgba(0,0,0,0.02),
+                0 0px 6px rgba(0,0,0,0.02), 
+                0 0px 8px rgba(0,0,0,0.02),
+                0 0px 10px rgba(0,0,0,0.02);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #959a9d;
+    flex-basis: 20%;
+    text-align: center;
+}
+/* /////////////////////////////////////// */
+
+/* Main form */
+main h1,h3 {
+    margin: 0 0 10px 3%;
+}
+
+.form {
+    background-color: white;
+    margin: auto auto 10% auto;
+    width: 95%;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Photo part */
+#file {
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+    opacity: 0;
+    top: -1000px;
+    left: -1000px;
+}
+
+.formPhoto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2%;
+    width: 95%;
+    background-color: #F3F4F6;
+    border-radius: 10px;
+}
+
+.photo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.fileLabel {
+    padding: 1.5% 0;
+    flex-basis: 20%;
+    background-color: #DC2626;
+    color: white;
+    border-radius: 0 10px 10px 0; 
+    cursor: pointer;
+    text-align: center;
+}
+
+.formPhoto a {
+    padding: 1.5% 0;
+    flex-basis: 10%;
+    text-align: center;
+    background-color: #F9FAFB;
+    border-radius: 10px 0 0 10px;
+    cursor: pointer;
+    display: inline-block;
+    height: 100%;
+}
+
+.fileName {
+    text-overflow: ellipsis;
+    margin: 0;
+    flex-basis: 65%;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.text-wrapper {
+    width: 100%;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 95%;
+    margin: 2% auto;
+}
+
+.textInput {
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1rem;
+    padding: 2%;
+    border: 1px solid #b8bec7;
+    font-family: Nunito;
+    font-weight: 700;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+}
+
+.textInput:focus {
+    outline: none;
+}
+
+.textInput::placeholder{
+    color: #c6cbd2;
+    font-family: Nunito;
+    font-weight: 500;
+}
+
+.input-wrap label {
+    color:#6B7280;
+    align-self: flex-start;
+    font-weight: 700;
+}
+
+textarea {
+    resize: none;
+}
+
+.form button {
+    padding: 2% 4%;
+    border: none;
+    background-color: #56c596;
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+    align-self: flex-end;
+    margin: 1rem 0 0 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+/* ////////////////////////////////////// */
+
+/* Show page here */
+.name {
+    margin: 0;
+    align-self: flex-start;
+    width: 100%;
+    border-bottom: 1px solid #f2f2f3;
+}
+
+.splitSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: row;
+}
+
+/* Left side */
+.left-side {
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-right: 1px solid #f2f2f3;
+    flex-direction: column;
+}
+
+.hotel-desc {
+    margin: 1rem 1rem 1rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f2f2f3;
+    align-self: flex-start;
+}
+
+.price {
+    margin: 0 1rem 0 0;
+    align-self: flex-start;
+}
+
+.location {
+    margin: 1rem 1rem 1rem 0;
+    align-self: flex-start;
+}
+
+.right-side {
+    background-color: #F9FAFB;
+    flex-basis: 50%;
+}
+
+.actionBtn {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.editBtn {
+    padding: .5rem 1.5rem;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    background-color: #3B82F6;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#deleteBtn {
+    padding: .5rem 1.5rem;
+    color: white;
+    background-color: #DC2626;
+    margin: 0 16px 0 16px;
+    font-family: Nunito;
+}
+
+@media (max-width: 600px) {
+    .form label {
+        flex-basis: 30%;
+    }
+    .formPhoto a {
+        flex-basis: 20%;
+    }
+    .fileName {
+        flex-basis: 45%;
+        white-space: nowrap;
+    }
+    .textInput {
+        padding: 4%;
+    }
+    .form button {
+        padding: 5% 10%;
+    }
+    .left-side {
+        flex-basis: 100%;
+        margin-bottom: 1rem;
+        border: none;
+    }
+    .right-side {
+        flex-basis: 100%;
+    }
+}
+
+.invalid {
+    border: 2px solid #EF4444;
+}
+
+.valid {
+    border: 2px solid #10B981;
+}
+
+@media (max-width:360px) {
+    .form label {
+        flex-basis: 50%;
+    }
+    .formPhoto a {
+        flex-basis: 25%;
+    }
+    .fileName {
+        flex-basis: 25%;
+    }
+}

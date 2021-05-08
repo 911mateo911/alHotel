@@ -1,0 +1,17 @@
+{
+  "name": "alhotel",
+  "version": "1.0.0",
+  "description": "alHotel - the best place to check for albanian hotels",
+  "main": "app.js",
+  "scripts": {
+    "build": "postcss tailwind/css/styles.css -o public/css/styles.css"
+  },
+  "author": "Mateo Malaj",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.3"
+  }
+}
